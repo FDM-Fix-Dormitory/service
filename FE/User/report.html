@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDM - 고장 신고</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a class="logo" href="index.html"><span class="logo-dot"></span>FDM<span class="logo-sub">기숙사 고장 신고</span></a>
+            <nav aria-label="주요 메뉴">
+                <a href="index.html">신고 현황</a>
+                <a href="my-report.html">내 신고</a>
+                <a href="../Admin/index.html">관리자</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- 신고 쓰는 화면 -->
+        <div id="writeArea">
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;">
+                <a class="back-link" href="index.html">← 신고 현황으로</a>
+                <h1>고장 신고</h1>
+                <p class="page-desc">고장 난 곳과 상황을 적어 주세요. 접수되면 처리 상태를 신고 현황과 내 신고에서 확인할 수 있어요.</p>
+            </div>
+
+            <div class="two-col">
+                <form id="reportForm" class="form-box left-col" novalidate>
+                    <fieldset class="fdm-field">
+                        <legend>신고 종류</legend>
+                        <div class="kind-row">
+                            <label id="publicOption" class="kind-option selected">
+                                <input type="radio" id="typePublic" name="reportType" value="public" checked>
+                                <span class="kind-name">공용시설</span>
+                                <span class="kind-desc">자판기, 세탁기, 샤워실처럼 모두 쓰는 시설. 신고 현황에 공개돼요.</span>
+                            </label>
+                            <label id="roomOption" class="kind-option">
+                                <input type="radio" id="typeRoom" name="reportType" value="room">
+                                <span class="kind-name">개인 호실</span>
+                                <span class="kind-desc">내 방 전등, 방 안 시설. 본인과 사감 선생님만 볼 수 있어요.</span>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <div class="fdm-field">
+                        <label class="fdm-label" for="title">제목</label>
+                        <input class="fdm-input" type="text" id="title" maxlength="30" placeholder="예: 2번 건조기 작동 안 됨" aria-describedby="titleHint titleError">
+                        <p id="titleHint" class="fdm-hint">무엇이 어떻게 고장 났는지 짧게 적어 주세요.</p>
+                        <p id="titleError" class="fdm-error hidden">제목을 적어 주세요.</p>
+                    </div>
+
+                    <!-- 공용시설일 때: 장소 -->
+                    <div id="placeArea" class="fdm-field">
+                        <label class="fdm-label" for="place">장소</label>
+                        <input class="fdm-input" type="text" id="place" placeholder="예: 3층 세탁실" aria-describedby="placeError">
+                        <p id="placeError" class="fdm-error hidden">장소를 적어 주세요.</p>
+                    </div>
+
+                    <!-- 개인 호실일 때: 호실 번호 (처음엔 숨김) -->
+                    <div id="roomArea" class="fdm-field hidden">
+                        <label class="fdm-label" for="roomNumber">호실 번호</label>
+                        <input class="fdm-input" type="text" id="roomNumber" inputmode="numeric" maxlength="4" placeholder="예: 312" aria-describedby="roomHint roomError">
+                        <p id="roomError" class="fdm-error hidden">호실 번호를 숫자로 적어 주세요.</p>
+                        <p id="roomHint" class="private-hint"><strong>비공개 신고예요.</strong> 호실 번호가 들어가서 신고 현황에는 나오지 않고, 나와 사감 선생님만 볼 수 있어요.</p>
+                    </div>
+
+                    <fieldset class="fdm-field">
+                        <legend>시설 종류</legend>
+                        <div class="fdm-choices">
+                            <label class="fdm-choice"><input type="radio" id="fac1" name="facility" value="자판기" checked><span>자판기</span></label>
+                            <label class="fdm-choice"><input type="radio" id="fac2" name="facility" value="세탁기"><span>세탁기</span></label>
+                            <label class="fdm-choice"><input type="radio" id="fac3" name="facility" value="건조기"><span>건조기</span></label>
+                            <label class="fdm-choice"><input type="radio" id="fac4" name="facility" value="샤워실"><span>샤워실</span></label>
+                            <label class="fdm-choice"><input type="radio" id="fac5" name="facility" value="전등"><span>전등</span></label>
+                            <label class="fdm-choice"><input type="radio" id="fac6" name="facility" value="기타"><span>기타</span></label>
+                        </div>
+                        <!-- 기타를 고르면 보이는 칸 -->
+                        <div id="etcArea" class="etc-area hidden">
+                            <label class="fdm-label" for="facilityEtc">어떤 시설인가요?</label>
+                            <input class="fdm-input" type="text" id="facilityEtc" maxlength="15" placeholder="예: 에어컨, 정수기, 방충망" aria-describedby="etcError">
+                            <p id="etcError" class="fdm-error hidden">시설 이름을 적어 주세요.</p>
+                        </div>
+                    </fieldset>
+
+                    <div class="fdm-field">
+                        <label class="fdm-label" for="content">고장 내용</label>
+                        <textarea class="fdm-input" id="content" placeholder="예: 버튼을 눌러도 돌아가지 않아요. 전원 표시등은 켜져 있어요." aria-describedby="contentHint contentError"></textarea>
+                        <p id="contentHint" class="fdm-hint">언제부터, 어떻게 고장 났는지 적으면 사감 선생님이 빨리 알아볼 수 있어요.</p>
+                        <p id="contentError" class="fdm-error hidden">고장 내용을 적어 주세요.</p>
+                    </div>
+
+                    <div class="fdm-field">
+                        <span class="fdm-label">사진 <span style="font-weight: 400; color: #5a6070;">(선택)</span></span>
+                        <div class="photo-row">
+                            <img id="preview" class="hidden" alt="첨부한 고장 사진 미리보기">
+                            <label class="photo-add" for="imageInput">
+                                <span id="photoText">+ 사진 추가하기</span>
+                                <small>시연용이라 이 브라우저에만 저장돼요</small>
+                                <input type="file" id="imageInput" accept="image/*">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button class="fdm-btn fdm-btn-primary" type="submit" style="min-width: 160px;">신고하기</button>
+                        <a class="fdm-btn fdm-btn-ghost" href="index.html">취소</a>
+                    </div>
+                </form>
+
+                <aside class="right-col">
+                    <!-- 공용시설 고를 때 보이는 안내 -->
+                    <div id="publicAside" style="display: flex; flex-direction: column; gap: 16px;">
+                        <section class="box">
+                            <h2>신고하면 이렇게 진행돼요</h2>
+                            <ol class="flow-list">
+                                <li class="flow-received"><span class="status"><span class="dot dot-received"></span>접수됨</span>신고를 올린 직후</li>
+                                <li class="flow-checking"><span class="status"><span class="dot dot-checking"></span>확인 중</span>사감 선생님이 확인함</li>
+                                <li class="flow-repairing"><span class="status"><span class="dot dot-repairing"></span>수리 중</span>수리 요청이 들어감</li>
+                                <li class="flow-done"><span class="status"><span class="dot dot-done"></span>완료</span>수리가 끝남</li>
+                            </ol>
+                        </section>
+                        <section class="yellow-box">
+                            <h2>같은 고장이 이미 있나요?</h2>
+                            <p>신고 현황에서 먼저 찾아보고, 있으면 "나도 같은 문제예요"를 눌러 주세요.</p>
+                            <a href="index.html">신고 현황 보기 →</a>
+                        </section>
+                    </div>
+
+                    <!-- 개인 호실 고를 때 보이는 안내 -->
+                    <section id="roomAside" class="box hidden">
+                        <h2>개인 호실 신고는 누가 보나요?</h2>
+                        <ul class="who-list">
+                            <li><strong>나</strong><span>내 신고에서 보여요</span></li>
+                            <li><strong>사감 선생님</strong><span>신고 관리에서 보여요</span></li>
+                            <li class="no"><strong>다른 학생</strong><span>보이지 않아요</span></li>
+                        </ul>
+                        <p class="small-text">비공개라서 "나도 같은 문제예요" 기능은 없어요.</p>
+                    </section>
+                </aside>
+            </div>
+        </div>
+
+        <!-- 접수 완료 화면 (처음엔 숨김) -->
+        <div id="doneArea" style="max-width: 760px; width: 100%; margin: 0 auto; display: none; flex-direction: column; gap: 24px;">
+            <section class="done-box" role="status">
+                <span class="done-mark">접수</span>
+                <h1>신고가 접수됐어요</h1>
+                <p class="page-desc">현재 상태는 <strong>접수됨</strong>이에요. 사감 선생님이 확인하면 상태가 바뀌고, 내 신고에서 바로 볼 수 있어요.</p>
+                <ol class="steps" aria-label="처리 단계">
+                    <li class="on current" aria-current="step"><span class="bar bar-received"></span>접수됨 · 지금</li>
+                    <li><span class="bar"></span>확인 중</li>
+                    <li><span class="bar"></span>수리 중</li>
+                    <li><span class="bar"></span>완료</li>
+                </ol>
+            </section>
+
+            <section class="box">
+                <h2>접수한 내용</h2>
+                <dl class="summary">
+                    <dt>신고 종류</dt><dd id="doneType"></dd>
+                    <dt>제목</dt><dd id="doneTitle"></dd>
+                    <dt id="donePlaceLabel">장소</dt><dd id="donePlace"></dd>
+                    <dt>시설 종류</dt><dd id="doneFacility"></dd>
+                    <dt>고장 내용</dt><dd id="doneContent" style="font-weight: 400;"></dd>
+                    <dt>사진</dt><dd id="donePhoto" style="font-weight: 400;"></dd>
+                </dl>
+            </section>
+
+            <div class="fdm-btn-row">
+                <a id="doneDetailLink" class="fdm-btn fdm-btn-primary" href="my-report.html">내 신고 보기</a>
+                <a class="fdm-btn fdm-btn-secondary" href="index.html">신고 현황으로</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>FDM - Fix Dormitory · 기숙사 시설 고장 신고</p>
+        <button id="resetButton" type="button">시연 데이터 처음으로</button>
+    </footer>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/user.js"></script>
+</body>
+</html>

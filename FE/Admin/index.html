@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDM 관리자 - 신고 관리</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a class="logo" href="../User/index.html"><span class="logo-dot"></span>FDM<span class="logo-sub">사감 선생님용</span></a>
+            <nav aria-label="주요 메뉴">
+                <a href="../User/index.html">신고 현황</a>
+                <a href="../User/my-report.html">내 신고</a>
+                <a class="now" href="index.html" aria-current="page">관리자</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            <h1>신고 관리</h1>
+            <p class="page-desc">같은 문제 수가 많은 신고부터 확인하고, 상태 버튼으로 처리 단계를 바꿔 주세요.</p>
+        </div>
+
+        <ul class="count-boxes admin-counts" aria-label="상태별 신고 수">
+            <li class="top-received"><span class="status">접수됨</span><span class="big"><span id="adminReceived">0</span><small>건</small></span><span class="small-text">새로 들어온 신고</span></li>
+            <li class="top-checking"><span class="status">확인 중</span><span class="big"><span id="adminChecking">0</span><small>건</small></span><span class="small-text">확인하고 있는 신고</span></li>
+            <li class="top-repairing"><span class="status">수리 중</span><span class="big"><span id="adminRepairing">0</span><small>건</small></span><span class="small-text">수리 요청한 신고</span></li>
+            <li class="top-done"><span class="status">완료</span><span class="big"><span id="adminDone">0</span><small>건</small></span><span class="small-text">끝난 신고</span></li>
+        </ul>
+
+        <section class="table-box" aria-labelledby="table-title">
+            <div class="list-head">
+                <h2 id="table-title" class="list-title">전체 신고 <span id="adminTotal" class="pill">0건</span></h2>
+                <p id="sortText" class="gray-text">공용시설 + 개인 호실 · 같은 문제 많은 순</p>
+            </div>
+
+            <!-- 보기 / 정렬 버튼 -->
+            <div class="sort-bar">
+                <div class="sort-group" role="group" aria-label="보기">
+                    <span class="sort-label">보기</span>
+                    <button id="filterAll" class="sort-btn" type="button" aria-pressed="true" onclick="setFilter('all')">전체</button>
+                    <button id="filterPublic" class="sort-btn" type="button" aria-pressed="false" onclick="setFilter('public')">공용시설</button>
+                    <button id="filterRoom" class="sort-btn" type="button" aria-pressed="false" onclick="setFilter('room')">개인 호실</button>
+                </div>
+                <div class="sort-group" role="group" aria-label="정렬">
+                    <span class="sort-label">정렬</span>
+                    <button id="sortSame" class="sort-btn" type="button" aria-pressed="true" onclick="setSort('same')">같은 문제 많은 순</button>
+                    <button id="sortStatus" class="sort-btn" type="button" aria-pressed="false" onclick="setSort('status')">처리 급한 순</button>
+                    <button id="sortNew" class="sort-btn" type="button" aria-pressed="false" onclick="setSort('new')">최신순</button>
+                    <button id="sortOld" class="sort-btn" type="button" aria-pressed="false" onclick="setSort('old')">오래된 순</button>
+                </div>
+            </div>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col" style="padding-left: 24px;">신고</th>
+                            <th scope="col">구분</th>
+                            <th scope="col" class="center">같은 문제</th>
+                            <th scope="col">현재 상태</th>
+                            <th scope="col">상태 변경</th>
+                        </tr>
+                    </thead>
+                    <!-- 표 내용은 admin.js가 채운다 -->
+                    <tbody id="adminTable"></tbody>
+                </table>
+            </div>
+        </section>
+        <p id="adminMessage" class="small-text" role="status"></p>
+    </main>
+
+    <footer>
+        <p>FDM - Fix Dormitory · 기숙사 시설 고장 신고</p>
+        <button id="resetButton" type="button">시연 데이터 처음으로</button>
+    </footer>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>

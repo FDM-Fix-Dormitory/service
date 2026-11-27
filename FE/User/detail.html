@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDM - 신고 상세</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a class="logo" href="index.html"><span class="logo-dot"></span>FDM<span class="logo-sub">기숙사 고장 신고</span></a>
+            <nav aria-label="주요 메뉴">
+                <a href="index.html">신고 현황</a>
+                <a href="my-report.html">내 신고</a>
+                <a href="../Admin/index.html">관리자</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- 신고를 못 찾았을 때 -->
+        <section id="notFound" class="box hidden">
+            <h2 id="notFoundTitle">신고를 찾을 수 없어요</h2>
+            <p id="notFoundText" class="gray-text">지워졌거나 주소가 잘못됐어요.</p>
+            <a class="fdm-btn fdm-btn-secondary" href="index.html" style="align-self: flex-start;">신고 현황으로</a>
+        </section>
+
+        <div id="detailArea" style="display: flex; flex-direction: column; gap: 24px;">
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <a id="backLink" class="back-link" href="index.html">← 신고 현황으로</a>
+                <div class="title-row">
+                    <h1 id="detailTitle">신고 제목</h1>
+                    <span id="detailStatus"></span>
+                    <span id="privateBadge" class="fdm-badge fdm-badge-private hidden">비공개 · 개인 호실</span>
+                </div>
+                <p id="detailMeta" class="page-desc"></p>
+            </div>
+
+            <div class="two-col">
+                <div class="left-col">
+                    <section class="box" aria-labelledby="steps-title">
+                        <div class="step-head">
+                            <h2 id="steps-title">처리 단계</h2>
+                            <p id="stepText" class="gray-text"></p>
+                        </div>
+                        <ol class="steps" aria-label="처리 단계">
+                            <li id="step1"><span id="bar1" class="bar"></span>접수됨</li>
+                            <li id="step2"><span id="bar2" class="bar"></span>확인 중</li>
+                            <li id="step3"><span id="bar3" class="bar"></span>수리 중</li>
+                            <li id="step4"><span id="bar4" class="bar"></span>완료</li>
+                        </ol>
+                        <p id="stepNote" class="gray-text"></p>
+                    </section>
+
+                    <section class="box" aria-labelledby="info-title">
+                        <h2 id="info-title">신고 내용</h2>
+                        <p id="detailContent" class="content-text"></p>
+                        <img id="detailPhoto" class="hidden" alt="첨부된 고장 사진">
+                        <dl class="facts">
+                            <div><dt>신고 종류</dt><dd id="factType"></dd></div>
+                            <div><dt id="factPlaceLabel">위치</dt><dd id="factPlace"></dd></div>
+                            <div><dt>시설 종류</dt><dd id="factFacility"></dd></div>
+                        </dl>
+                    </section>
+                </div>
+
+                <aside class="right-col">
+                    <!-- 공용시설: 같은 문제 -->
+                    <section id="sameBox" class="same-box" aria-labelledby="same-title">
+                        <h2 id="same-title">같은 문제</h2>
+                        <div class="same-row">
+                            <span id="sameCount">0</span>
+                            <span>명이 겪고 있어요</span>
+                        </div>
+                        <p id="sameGuide">같은 고장을 겪고 있다면 새로 신고하지 말고 눌러 주세요. 사감 선생님이 급한 고장을 알아보는 데 쓰여요.</p>
+                        <button id="sameButton" type="button">나도 같은 문제예요</button>
+                        <p id="sameMessage" role="status"></p>
+                    </section>
+
+                    <!-- 개인 호실: 비공개 안내 -->
+                    <section id="privateBox" class="private-box hidden" aria-labelledby="private-title">
+                        <h2 id="private-title">비공개 신고예요</h2>
+                        <p>호실 번호가 들어간 신고라 나와 사감 선생님만 볼 수 있어요. 신고 현황 목록에는 나오지 않아요.</p>
+                        <p>개인 호실 신고에는 "나도 같은 문제예요" 기능이 없어요.</p>
+                    </section>
+
+                    <section id="otherBox" class="box">
+                        <h2>찾는 고장이 아닌가요?</h2>
+                        <p class="gray-text">다른 고장이면 새로 신고해 주세요.</p>
+                        <a class="fdm-btn fdm-btn-secondary" href="report.html">고장 신고하기</a>
+                    </section>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>FDM - Fix Dormitory · 기숙사 시설 고장 신고</p>
+        <button id="resetButton" type="button">시연 데이터 처음으로</button>
+    </footer>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/user.js"></script>
+</body>
+</html>

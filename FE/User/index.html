@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDM - 신고 현황</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a class="logo" href="index.html"><span class="logo-dot"></span>FDM<span class="logo-sub">기숙사 고장 신고</span></a>
+            <nav aria-label="주요 메뉴">
+                <a class="now" href="index.html" aria-current="page">신고 현황</a>
+                <a href="my-report.html">내 신고</a>
+                <a href="../Admin/index.html">관리자</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <p class="pill" style="margin: 0;">공용시설 신고 <span id="publicCount">0</span>건</p>
+                <h1>신고 현황</h1>
+                <p class="page-desc">이미 올라온 고장이면 새로 신고하지 말고 "나도 같은 문제예요"를 눌러 주세요.<br>같은 고장은 한 건으로 모여 사감 선생님께 전달돼요.</p>
+            </div>
+            <div class="fdm-btn-row">
+                <a class="fdm-btn fdm-btn-secondary" href="my-report.html">내 신고 보기</a>
+                <a class="fdm-btn fdm-btn-primary" href="report.html">고장 신고하기</a>
+            </div>
+        </section>
+
+        <div class="two-col">
+            <section class="left-col" aria-labelledby="list-title">
+                <div class="list-head">
+                    <h2 id="list-title" class="list-title">공용시설 신고</h2>
+                    <p class="gray-text">같은 문제 많은 순</p>
+                </div>
+                <!-- 목록은 user.js가 채운다 -->
+                <ul id="publicList" class="report-list"></ul>
+            </section>
+
+            <aside class="right-col">
+                <section class="blue-box">
+                    <h2>내 신고</h2>
+                    <div class="mine-numbers">
+                        <div><strong id="myReceived">0</strong><span>접수됨</span></div>
+                        <div><strong id="myChecking">0</strong><span>확인 중</span></div>
+                        <div><strong id="myRepairing">0</strong><span>수리 중</span></div>
+                        <div><strong id="myDone">0</strong><span>완료</span></div>
+                    </div>
+                    <a class="yellow-btn" href="my-report.html">내 신고 보기</a>
+                </section>
+
+                <section class="box">
+                    <h2>신고 전에 확인해 주세요</h2>
+                    <ol class="number-list">
+                        <li><b>1</b>목록에서 같은 고장이 있는지 먼저 찾아 주세요.</li>
+                        <li><b>2</b>있으면 "나도 같은 문제예요", 없으면 고장 신고하기.</li>
+                        <li><b>3</b>처리 상태는 내 신고에서 확인해요.</li>
+                    </ol>
+                    <p class="gray-box">개인 호실 신고는 이 목록에 나오지 않아요. 본인과 사감 선생님만 볼 수 있어요.</p>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <p>FDM - Fix Dormitory · 기숙사 시설 고장 신고</p>
+        <button id="resetButton" type="button">시연 데이터 처음으로</button>
+    </footer>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/user.js"></script>
+</body>
+</html>
