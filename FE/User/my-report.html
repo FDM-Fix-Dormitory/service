@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDM - 내 신고</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a class="logo" href="index.html"><span class="logo-dot"></span>FDM<span class="logo-sub">기숙사 고장 신고</span></a>
+            <nav aria-label="주요 메뉴">
+                <a href="index.html">신고 현황</a>
+                <a class="now" href="my-report.html" aria-current="page">내 신고</a>
+                <a href="../Admin/index.html">관리자</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="top-row">
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <h1>내 신고</h1>
+                <p class="page-desc">내가 올린 신고 <span id="myTotal">0</span>건의 처리 상태예요.</p>
+            </div>
+            <a class="fdm-btn fdm-btn-primary" href="report.html">고장 신고하기</a>
+        </div>
+
+        <ul class="count-boxes" aria-label="상태별 내 신고 수">
+            <li class="top-received"><span class="status"><span class="dot dot-received"></span>접수됨</span><span class="big"><span id="countReceived">0</span><small>건</small></span></li>
+            <li class="top-checking"><span class="status"><span class="dot dot-checking"></span>확인 중</span><span class="big"><span id="countChecking">0</span><small>건</small></span></li>
+            <li class="top-repairing"><span class="status"><span class="dot dot-repairing"></span>수리 중</span><span class="big"><span id="countRepairing">0</span><small>건</small></span></li>
+            <li class="top-done"><span class="status"><span class="dot dot-done"></span>완료</span><span class="big"><span id="countDone">0</span><small>건</small></span></li>
+        </ul>
+
+        <section class="left-col" aria-labelledby="pub-title">
+            <h2 id="pub-title" class="list-title">공용시설 <span id="myPublicCount" class="pill">0건</span></h2>
+            <div id="myPublicList" class="report-list"></div>
+        </section>
+
+        <section class="left-col" aria-labelledby="room-title">
+            <h2 id="room-title" class="list-title">개인 호실 <span id="myRoomCount" class="pill">0건</span></h2>
+            <div id="myRoomList" class="report-list"></div>
+            <p class="small-text">점선 카드는 나와 사감 선생님만 볼 수 있는 신고예요.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>FDM - Fix Dormitory · 기숙사 시설 고장 신고</p>
+        <button id="resetButton" type="button">시연 데이터 처음으로</button>
+    </footer>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/user.js"></script>
+</body>
+</html>
