@@ -1,0 +1,11 @@
+{
+  "name": "fdm-service",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "npm --prefix BE install",
+    "build": "npm --prefix BE run build",
+    "start": "npm run build && npm --prefix BE start"
+  }
+}
